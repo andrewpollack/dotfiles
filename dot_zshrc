@@ -71,10 +71,15 @@ esac
 # Install: brew install starship
 eval "$(starship init zsh)"
 
+in_vscode() { [[ "${TERM_PROGRAM:-}" == "vscode" || -n "${VSCODE_PID:-}" ]]; }
+
+
 ##### tmux autostart (interactive terminals only) #####
 # Start tmux automatically when not already inside tmux.
 # Comment this out if you don't want auto-tmux.
 if [[ -z "$TMUX" && -t 1 ]]; then
-      tmux new-session -A -s "${USER}"
+    if ! in_vscode; then
+        tmux new-session -A -s "${USER}"
+    fi
 fi
 
