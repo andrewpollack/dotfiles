@@ -1,0 +1,57 @@
+" --- GENERAL ---
+set nocompatible            " Use Vim defaults instead of old vi defaults
+syntax on                   " Enable syntax highlighting
+" filetype plugin indent on   " Enable filetype detection + plugins + smart indenting
+
+set number                  " Show line numbers
+set relativenumber          " Relative line numbers for easy movement
+set clipboard=unnamedplus   " Use system clipboard (copy/paste with Cmd/Ctrl+V)
+
+" --- SEARCHING ---
+set ignorecase              " Case-insensitive search...
+set smartcase               " ... except when including capital letters
+set incsearch               " Highlight search as you type
+set hlsearch                " Highlight all search matches
+
+" --- INDENTATION / FORMATTING ---
+set expandtab               " Use spaces instead of tabs
+set shiftwidth=4            " Indent width
+set tabstop=4               " Tab equals 4 spaces
+set autoindent              " Auto-indent new lines
+set smartindent             " Smarter indentation for programming
+set wrap                    " Soft wrap long lines
+
+" --- UI / FEEDBACK ---
+set ruler                   " Show cursor position
+set showcmd                 " Show commands as you type
+set showmatch               " Highlight matching parenthesis
+set wildmenu                " Better command-line completion
+set termguicolors           " True color support (if supported by terminal)
+set cursorline              " Highlight current line
+
+" --- PERFORMANCE / FIX ANNOYANCES ---
+set hidden                  " Allow switching buffers without saving
+set backspace=indent,eol,start " Make backspace work as expected
+set splitright              " New splits open to the right
+set splitbelow              " New splits open below
+
+" Theme
+colorscheme elflord         " Set a nice readable theme (built-in)
+
+" Highlight trailing whitespace — catches formatting issues
+set list
+set listchars=tab:»·,trail:•,nbsp:␣
+
+" Keep 8 lines of context when scrolling
+set scrolloff=8
+
+" Time to learn
+nnoremap <Up>    :echo "Use k to go up!"<CR>
+nnoremap <Down>  :echo "Use j to go down!"<CR>
+nnoremap <Left>  :echo "Use h to go left!"<CR>
+nnoremap <Right> :echo "Use l to go right!"<CR>
+
+inoremap <Up>    <Esc>:echo "Use k to go up!"<CR>a
+inoremap <Down>  <Esc>:echo "Use j to go down!"<CR>a
+inoremap <Left>  <Esc>:echo "Use h to go left!"<CR>a
+inoremap <Right> <Esc>:echo "Use l to go right!"<CR>a
