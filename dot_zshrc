@@ -4,6 +4,33 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+export CLICOLOR=1
+export CLICOLOR_FORCE=1
+
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
