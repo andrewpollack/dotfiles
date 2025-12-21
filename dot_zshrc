@@ -1,49 +1,63 @@
-export ZSH="$HOME/.oh-my-zsh"
+# ~/.zshrc
+# Minimal, cyberpunk-ish, mac-first zsh config (no oh-my-zsh). Uses Starship.
 
-ZSH_THEME="robbyrussell"
-plugins=(git)
-source $ZSH/oh-my-zsh.sh
+##### Locale #####
+export LANG="en_US.UTF-8"
 
-HISTSIZE=1000
-HISTFILESIZE=2000
+##### History #####
+HISTSIZE=100000
+SAVEHIST=100000
+HISTFILE="$HOME/.zsh_history"
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
 
-export CLICOLOR=1
-export CLICOLOR_FORCE=1
+##### Completion #####
+autoload -Uz compinit
+compinit
 
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
+##### Sensible shell behavior #####
+setopt AUTO_CD
+setopt EXTENDED_GLOB
+setopt NO_BEEP
 
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+##### Editor #####
+export EDITOR="vim"
+export VISUAL="vim"
 
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
-else
-    export EDITOR='vim'
-fi
-
+##### Aliases #####
 alias k="kubectl"
+alias ll="ls -lah"
+alias la="ls -A"
 
-if [[ -z "$TMUX_PANE" ]]; then
-    tmux new-session -A -s "${USER}"
+##### ls colors (GNU if available; otherwise macOS BSD ls) #####
+if command -v gls >/dev/null 2>&1; then
+    # GNU coreutils installed (brew install coreutils)
+    alias ls='gls --color=auto --group-directories-first'
+    # Optional theme generator (brew install vivid)
+    if command -v vivid >/dev/null 2>&1; then
+        export LS_COLORS="$(vivid generate molokai)"
+    fi
+
+    # dirs: cyan (45), symlinks: purple (141), executables: neon green (118), broken symlinks: neon red (196)
+    export LS_COLORS="${LS_COLORS}:di=38;5;45:ln=38;5;141:ex=01;38;5;118:or=01;38;5;196"
+else
+    # macOS /bin/ls
+    export CLICOLOR=1
+    export CLICOLOR_FORCE=1
+    export LSCOLORS=GxFxCxDxBxegedabagaced
+    alias ls='ls -G'
+fi
+
+##### Starship prompt #####
+# Install: brew install starship
+eval "$(starship init zsh)"
+
+##### tmux autostart (interactive terminals only) #####
+# Start tmux automatically when not already inside tmux.
+# Comment this out if you don't want auto-tmux.
+if [[ -z "$TMUX" && -t 1 ]]; then
+      tmux new-session -A -s "${USER}"
 fi
 
