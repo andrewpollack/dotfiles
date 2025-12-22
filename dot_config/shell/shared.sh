@@ -1,6 +1,24 @@
 # ~/.config/shell/shared.sh
 # Shared config for bash + zsh (keep this POSIX-ish)
 
+path_prepend() { case ":$PATH:" in *":$1:"*) :;; *) PATH="$1:$PATH";; esac; }
+path_append()  { case ":$PATH:" in *":$1:"*) :;; *) PATH="$PATH:$1";; esac; }
+
+# Common paths (safe if they don't exist)
+[ -d "$HOME/.local/bin" ] && path_prepend "$HOME/.local/bin"
+[ -d "$HOME/bin" ] && path_prepend "$HOME/bin"
+
+export GREP_COLORS="ms=01;38;5;198:mc=01;38;5;198:sl=:cx=:fn=35:ln=32:bn=32:se=36"
+alias grep='grep --color=auto'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+
 export LANG="en_US.UTF-8"
 
 export EDITOR="vim"

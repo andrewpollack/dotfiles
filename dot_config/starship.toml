@@ -36,3 +36,11 @@ format = " [$all_status$ahead_behind]($style)"
 [character]
 success_symbol = "[❯](bold fg:45) "
 error_symbol = "[❯](bold fg:196) "
+
+[cmd_duration]
+min_time = 1500
+format = " took [$duration](fg:141)"
+
+[status]
+disabled = false
+format = " [$status](bold fg:196)"
