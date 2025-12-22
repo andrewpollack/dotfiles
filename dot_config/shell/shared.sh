@@ -52,12 +52,12 @@ fi
 
 # tmux autostart (interactive only, not VS Code, not already inside tmux)
 # Note: bash uses $- to detect interactive; zsh does too.
-case "$-" in
-  *i*)
-    if [ -z "${TMUX:-}" ] && [ -t 1 ]; then
-      if ! in_vscode; then
-        tmux new-session -A -s "${USER}"
-      fi
-    fi
-    ;;
-esac
+# case "$-" in
+#   *i*)
+#     if [ -z "${TMUX:-}" ] && [ -t 1 ]; then
+#       if ! in_vscode; then
+#         tmux new-session -A -s "${USER}"
+#       fi
+#     fi
+#     ;;
+# esac
