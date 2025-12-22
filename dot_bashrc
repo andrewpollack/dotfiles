@@ -1,0 +1,21 @@
+# ~/.bashrc
+
+# bash history (bash-specific)
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+export HISTFILE="$HOME/.bash_history"
+shopt -s histappend
+export HISTCONTROL="ignoreboth:erasedups"
+PROMPT_COMMAND="history -a; history -c; history -r${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+
+# bash completion (bash-specific)
+if [[ -r /etc/bash_completion ]]; then
+  source /etc/bash_completion
+elif [[ -r /usr/local/etc/bash_completion ]]; then
+  source /usr/local/etc/bash_completion
+elif [[ -r /opt/homebrew/etc/bash_completion ]]; then
+  source /opt/homebrew/etc/bash_completion
+fi
+
+# source shared config
+source "$HOME/.config/shell/shared.sh"

@@ -1,9 +1,6 @@
 # ~/.zshrc
 
-##### Locale #####
-export LANG="en_US.UTF-8"
-
-##### History #####
+# zsh history + options (zsh-specific)
 HISTSIZE=100000
 SAVEHIST=100000
 HISTFILE="$HOME/.zsh_history"
@@ -11,75 +8,13 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
+setopt NO_BEEP
+setopt AUTO_CD
+setopt EXTENDED_GLOB
 
-##### Completion #####
+# completion (zsh-specific)
 autoload -Uz compinit
 compinit
 
-##### Sensible shell behavior #####
-setopt AUTO_CD
-setopt EXTENDED_GLOB
-setopt NO_BEEP
-
-##### Editor #####
-export EDITOR="vim"
-export VISUAL="vim"
-
-##### Aliases #####
-alias k="kubectl"
-alias ll="ls -lah"
-alias la="ls -A"
-
-# --- ls colors (portable: macOS + Linux) ---
-case "$OSTYPE" in
-  darwin*)
-    if command -v gls >/dev/null 2>&1; then
-        # GNU coreutils installed (brew install coreutils)
-        alias ls='gls --color=auto --group-directories-first'
-
-        # Optional theme generator (brew install vivid)
-        if command -v vivid >/dev/null 2>&1; then
-            export LS_COLORS="$(vivid generate molokai)"
-        fi
-
-        # dirs: cyan (45), symlinks: purple (141), executables: neon green (118), broken symlinks: neon red (196)
-        export LS_COLORS="${LS_COLORS}:di=38;5;45:ln=38;5;141:ex=01;38;5;118:or=01;38;5;196"
-    else
-        # macOS /bin/ls
-        export CLICOLOR=1
-        export CLICOLOR_FORCE=1
-        export LSCOLORS=GxFxCxDxBxegedabagaced
-        alias ls='ls -G'
-    fi
-    ;;
-  linux*)
-    # Linux GNU ls
-    alias ls='ls --color=auto --group-directories-first'
-
-    # If vivid exists, use it; else fall back to dircolors if available
-    if command -v vivid >/dev/null 2>&1; then
-      export LS_COLORS="$(vivid generate molokai)"
-    elif command -v dircolors >/dev/null 2>&1; then
-      eval "$(dircolors -b)"
-    fi
-
-    export LS_COLORS="${LS_COLORS}:di=38;5;45:ln=38;5;141:ex=01;38;5;118:or=01;38;5;196"
-    ;;
-esac
-
-##### Starship prompt #####
-# Install: brew install starship
-eval "$(starship init zsh)"
-
-in_vscode() { [[ "${TERM_PROGRAM:-}" == "vscode" || -n "${VSCODE_PID:-}" ]]; }
-
-
-##### tmux autostart (interactive terminals only) #####
-# Start tmux automatically when not already inside tmux.
-# Comment this out if you don't want auto-tmux.
-if [[ -z "$TMUX" && -t 1 ]]; then
-    if ! in_vscode; then
-        tmux new-session -A -s "${USER}"
-    fi
-fi
-
+# source shared config
+source "$HOME/.config/shell/shared.sh"
