@@ -1,0 +1,48 @@
+#!/bin/sh
+set -eu
+
+need() {
+  cmd="$1"
+  msg="$2"
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "❌ Missing required tool: $cmd" >&2
+    echo "   $msg" >&2
+    echo "" >&2
+    missing=1
+  fi
+}
+
+warn() {
+  cmd="$1"
+  msg="$2"
+  if ! command -v "$cmd" >/dev/null 2>&1; then
+    echo "⚠️  Optional tool not found: $cmd" >&2
+    echo "   $msg" >&2
+    echo "" >&2
+  fi
+}
+
+missing=0
+
+# Required (because your dotfiles assume these exist)
+need tmux     "Install: macOS: brew install tmux | Ubuntu: sudo apt install -y tmux"
+need starship "Install: macOS: brew install starship | Ubuntu: curl -sS https://starship.rs/install.sh | sh"
+
+# Optional (nice-to-haves your config benefits from)
+warn git   "Install: macOS: xcode-select --install (or brew install git) | Ubuntu: sudo apt install -y git"
+warn vivid "For consistent LS_COLORS theme: macOS: brew install vivid | Ubuntu: cargo install vivid (or distro package)"
+warn gls   "For GNU ls on macOS: brew install coreutils (provides 'gls')"
+
+# Clipboard helpers used by your tmux config:
+# macOS: pbcopy is usually present; Linux: prefer wl-copy (Wayland) or xclip (X11)
+{{- if eq .chezmoi.os "linux" }}
+warn wl-copy "Wayland clipboard: sudo apt install -y wl-clipboard"
+warn xclip   "X11 clipboard: sudo apt install -y xclip"
+{{- end }}
+
+if [ "$missing" -ne 0 ]; then
+  echo "🛑 Prerequisites missing. Install the required tools above, then re-run: chezmoi apply" >&2
+  exit 1
+fi
+
+echo "✅ Prereqs OK"
