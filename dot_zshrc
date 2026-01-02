@@ -27,3 +27,5 @@ bindkey '^[[B' down-line-or-beginning-search
 
 # source shared config
 source "$HOME/.config/shell/shared.sh"
+
+source "$HOME/.zshrc_user"
