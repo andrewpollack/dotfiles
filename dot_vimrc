@@ -36,7 +36,7 @@ set splitright              " New splits open to the right
 set splitbelow              " New splits open below
 
 " Theme
-colorscheme elflord         " Set a nice readable theme (built-in)
+" colorscheme elflord         " Set a nice readable theme (built-in)
 
 " Highlight trailing whitespace — catches formatting issues
 set list
