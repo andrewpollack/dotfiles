@@ -25,6 +25,9 @@ zle -N down-line-or-beginning-search
 bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+
 # source shared config
 source "$HOME/.config/shell/shared.sh"
 

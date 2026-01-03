@@ -17,5 +17,8 @@ elif [[ -r /opt/homebrew/etc/bash_completion ]]; then
   source /opt/homebrew/etc/bash_completion
 fi
 
+bind '"\C-a": beginning-of-line'
+bind '"\C-e": end-of-line'
+
 # source shared config
 source "$HOME/.config/shell/shared.sh"

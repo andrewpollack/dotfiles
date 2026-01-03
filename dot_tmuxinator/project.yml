@@ -5,10 +5,9 @@ root: <%= ENV['PWD'] %>
 
 windows:
   - main:
+      layout: "7dde,242x54,0,0{121x54,0,0[121x27,0,0,0,121x26,0,28,3],120x54,122,0,1}"
       panes:
-        - # First pane (will be top left)
-        - # Second pane (right side, full height)
-        - pane:
-          - tmux select-pane -t 0  # Go back to first pane
-          - tmux split-window -v   # Split it vertically (bottom left)
+        - # left-top
+        - claude # left-bottom
+        - # right
 
