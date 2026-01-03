@@ -1,0 +1,12 @@
+# To use: tmuxinator start project
+
+name: project
+root: <%= ENV['PWD'] %>
+
+windows:
+  - main:
+      layout: main-vertical
+      panes:
+        - # First pane (main/left)
+        - # Second pane (top right)
+        - # Third pane (bottom right)
