@@ -9,5 +9,9 @@ windows:
       panes:
         - # left-top
         - claude # left-bottom
-        - # right
+        -  # right
+          focus: true
+  - git:
+      panes:
+        - git status
 
