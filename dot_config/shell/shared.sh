@@ -28,6 +28,15 @@ alias k="kubectl"
 alias ll="ls -lah"
 alias la="ls -A"
 
+alias gs="git status"
+alias gss='git status -sb'           # short + branch
+alias gsh='git show --stat'
+
+# Diffs
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gdt='git diff --stat'
+
 # Detect VS Code terminal
 in_vscode() {
   [ "${TERM_PROGRAM:-}" = "vscode" ] || [ -n "${VSCODE_PID:-}" ]
