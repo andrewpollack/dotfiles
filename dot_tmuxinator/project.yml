@@ -1,6 +1,6 @@
 # To use: tmuxinator start project
 
-name: project
+name: <%= File.basename(ENV['PWD']) %>
 root: <%= ENV['PWD'] %>
 
 windows:
