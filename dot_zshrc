@@ -28,7 +28,17 @@ bindkey '^[[B' down-line-or-beginning-search
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+# Prefix match history search (uses what's already typed)
+bindkey -M emacs '^R' up-line-or-beginning-search
+bindkey -M viins '^R' up-line-or-beginning-search
+bindkey -M vicmd '^R' up-line-or-beginning-search
+
 # source shared config
 source "$HOME/.config/shell/shared.sh"
 
 source "$HOME/.zshrc_user"
+

@@ -1,7 +1,7 @@
 # To use: tmuxinator start project
 
-name: <%= File.basename(ENV['PWD']) %>
-root: <%= ENV['PWD'] %>
+name: <%= File.basename(ENV["PWD"]) %>
+root: <%= ENV["PWD"] %>
 
 windows:
   - main:
@@ -9,8 +9,28 @@ windows:
       panes:
         - git status # left-top
         - claude # left-bottom
-        - # right pane
+        - "" # right pane
+
   - git:
       panes:
-        - git status
+        - |
+          alias githelp='echo "
+          === Git Quick Reference ===
+          Status & Info:
+            git status          - Show working tree status
+            git diff            - Show unstaged changes
+            git diff --staged   - Show staged changes
+            git diff main..feature       - Diff between branches
+            git diff <c1> <c2>           - Diff between two commits
 
+          Staging & Committing:
+            git add <file>      - Stage file
+            git add -p          - Interactive staging
+
+          Undo:
+            git restore <file>          - Discard changes
+            git restore --staged <file> - Unstage file
+            git reset HEAD~1            - Undo last commit (keep changes)
+          "'
+          git status
+          echo -e "\nType 'githelp' for git command reference"
