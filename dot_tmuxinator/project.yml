@@ -7,10 +7,9 @@ windows:
   - main:
       layout: "7dde,242x54,0,0{121x54,0,0[121x27,0,0,0,121x26,0,28,3],120x54,122,0,1}"
       panes:
-        - # left-top
+        - git status # left-top
         - claude # left-bottom
-        -  # right
-          focus: true
+        - # right pane
   - git:
       panes:
         - git status
